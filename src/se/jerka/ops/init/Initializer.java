@@ -20,7 +20,7 @@ import se.jerka.ops.model.World;
 import se.jerka.ops.model.Location.Direction;
 import se.jerka.ops.model.Position;
 import se.jerka.ops.usr.User;
-import se.jerka.ops.usr.Womb;
+import se.jerka.ops.usr.UserFactory;
 
 public class Initializer {
 	
@@ -46,7 +46,7 @@ public class Initializer {
 	}
 	
 	public User initUser() {
-		return Womb.createUser(initInventory(), initUserLocation(), initUserPosition());
+		return UserFactory.createUser(initInventory(), initUserLocation(), initUserPosition());
 	}
 	
 	public ArtificialIntelligence initAI(Location location) {

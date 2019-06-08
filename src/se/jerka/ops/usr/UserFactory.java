@@ -6,7 +6,7 @@ import se.jerka.ops.model.Location;
 import se.jerka.ops.model.Position;
 import se.jerka.ops.model.Thing;
 
-public class Womb {
+public class UserFactory {
 	
 	public static User createUser(
 			List<Thing> inventory,
