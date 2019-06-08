@@ -10,11 +10,11 @@ import se.jerka.ops.ai.ArtificialIntelligence;
 import se.jerka.ops.ai.AIManager;
 import se.jerka.ops.io.DataReader;
 import se.jerka.ops.model.Creature;
-import se.jerka.ops.model.Mordor;
+import se.jerka.ops.model.CreatureFactory;
 import se.jerka.ops.model.CsvCreature;
 import se.jerka.ops.model.DummyLocation;
 import se.jerka.ops.model.Location;
-import se.jerka.ops.model.BigBang;
+import se.jerka.ops.model.WorldFactory;
 import se.jerka.ops.model.Thing;
 import se.jerka.ops.model.World;
 import se.jerka.ops.model.Location.Direction;
@@ -42,7 +42,7 @@ public class Initializer {
 	}
 	
 	public World initWorld() {
-		return BigBang.createWorld(initLocations());
+		return WorldFactory.createWorld(initLocations());
 	}
 	
 	public User initUser() {
@@ -58,7 +58,7 @@ public class Initializer {
 		List<DummyLocation> dummies = reader.readLocations(DummyLocation.WORLD_PATH);	
 		for (DummyLocation dummy : dummies) {
 			List<Thing> things = reader.readThings(dummy.getPath());
-			locations.add(BigBang.createLocation(
+			locations.add(WorldFactory.createLocation(
 					dummy.getName(),
 					dummy.getDescription(),
 					null,
@@ -91,10 +91,10 @@ public class Initializer {
 			for (CsvCreature csvCreature : csvCreatures) {
 				String name = csvCreature.getLocationName();
 				if (location.getName().equalsIgnoreCase(name)) {
-					creatures.add(Mordor.createCreature(
+					creatures.add(CreatureFactory.createCreature(
 							csvCreature.getName(),
 							location,
-							BigBang.createPosition(csvCreature.x(), csvCreature.y())
+							WorldFactory.createPosition(csvCreature.x(), csvCreature.y())
 					));
 				}
 			}
@@ -111,7 +111,7 @@ public class Initializer {
 	}
 	
 	private Position initUserPosition() {
-		return BigBang.createPosition(User.START_X, User.START_Y);
+		return WorldFactory.createPosition(User.START_X, User.START_Y);
 	}
 	
 	

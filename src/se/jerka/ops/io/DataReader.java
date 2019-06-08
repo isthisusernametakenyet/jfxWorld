@@ -11,11 +11,11 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 
-import se.jerka.ops.model.Mordor;
+import se.jerka.ops.model.CreatureFactory;
 import se.jerka.ops.model.CsvCreature;
 import se.jerka.ops.model.DummyLocation;
 import se.jerka.ops.model.Location;
-import se.jerka.ops.model.BigBang;
+import se.jerka.ops.model.WorldFactory;
 import se.jerka.ops.model.Thing;
 import se.jerka.ops.model.ThingFactory;
 
@@ -33,7 +33,7 @@ public class DataReader {
 						ThingFactory.createThing(
 								row[0],
 								row[1],
-								BigBang.createPosition(
+								WorldFactory.createPosition(
 										Integer.parseInt(row[2]),
 										Integer.parseInt(row[3])
 								)
@@ -56,7 +56,7 @@ public class DataReader {
 			String[] row;
 			while ((row = reader.readNext()) != null) {
 				dummies.add(
-						BigBang.createDummyLocation(
+						WorldFactory.createDummyLocation(
 								row[0],
 								row[1],
 			 					Integer.parseInt(row[2]), 
@@ -82,7 +82,7 @@ public class DataReader {
 				CSVReader reader = new CSVReader(isr)) {
 			String[] row;
 			while ((row = reader.readNext()) != null) {
-				creatures.add(Mordor.createCsvCreature(row[0], row[1], row[2], row[3]));
+				creatures.add(CreatureFactory.createCsvCreature(row[0], row[1], row[2], row[3]));
 			}
 		} catch (IOException ioe) {
 			System.err.println("Unable to read " + path + " : " + ioe.getMessage());

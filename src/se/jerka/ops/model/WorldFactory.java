@@ -4,7 +4,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 
-public class BigBang {
+public class WorldFactory {
 	
 	public static World createWorld(List<Location> locations) {
 		return new World(locations);

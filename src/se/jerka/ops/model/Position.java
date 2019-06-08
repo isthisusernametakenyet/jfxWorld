@@ -25,13 +25,13 @@ public class Position {
 	public Position nextPosition(Direction direction) {
 		switch (direction) {
 		case NORTH:
-			return BigBang.createPosition(x, y-1);
+			return WorldFactory.createPosition(x, y-1);
 		case WEST:
-			return BigBang.createPosition(x-1, y);
+			return WorldFactory.createPosition(x-1, y);
 		case EAST:
-			return BigBang.createPosition(x+1, y);
+			return WorldFactory.createPosition(x+1, y);
 		case SOUTH:
-			return BigBang.createPosition(x, y+1);
+			return WorldFactory.createPosition(x, y+1);
 		default:
 			throw new IllegalArgumentException();
 		}

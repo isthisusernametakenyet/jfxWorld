@@ -1,6 +1,6 @@
 package se.jerka.ops.model;
 
-public class Mordor {
+public class CreatureFactory {
 	
 	public static Creature createCreature(
 			String name,
