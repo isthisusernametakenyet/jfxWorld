@@ -85,27 +85,27 @@ public class Gui {
 	
 	private enum NodeLink {
 		NEXT,
-		LAST;
+		PREV;
 	}
 		
 	private class Activity {
 		
 		private Node node;
 		private Activity next;
-		private Activity last;
+		private Activity prev;
 		
 		Activity(Node node, Activity next, Activity last) {
 			this.node = node;
 			this.next = next;
-			this.last = last;
+			this.prev = last;
 		}
 		
 		private Activity get(NodeLink link) {
 			switch (link) {
 			case NEXT:
 				return next;
-			case LAST:
-				return last;
+			case PREV:
+				return prev;
 				default: throw new IllegalArgumentException(); 
 			}
 		}
@@ -115,8 +115,8 @@ public class Gui {
 			case NEXT:
 				next = activity;
 				break;
-			case LAST:
-				last = activity;
+			case PREV:
+				prev = activity;
 				break;
 				default: throw new IllegalArgumentException();
 			}
@@ -188,9 +188,9 @@ public class Gui {
 		micro = new Activity(locationGrid, null, null);
 		inventory = new Activity(inventoryView, null, null);
 		macro.setLink(micro, NodeLink.NEXT);
-		micro.setLink(macro, NodeLink.LAST);
+		micro.setLink(macro, NodeLink.PREV);
 		micro.setLink(inventory, NodeLink.NEXT);
-		inventory.setLink(micro, NodeLink.LAST);
+		inventory.setLink(micro, NodeLink.PREV);
 		modeMap = new HashMap<Activity, Mode>();
 		modeMap.put(macro, Mode.MACRO);		
 		modeMap.put(micro, Mode.MICRO);
@@ -287,7 +287,7 @@ public class Gui {
 				handleNewActivity(NodeLink.NEXT);
 				break;
 			case O:
-				handleNewActivity(NodeLink.LAST);
+				handleNewActivity(NodeLink.PREV);
 				break;
 			case W:
 			case A:
@@ -391,7 +391,7 @@ public class Gui {
 				Thing thing = inventoryView.getSelectionModel().getSelectedItem();
 				user.drop(thing);
 				messages.setText(thing.getName() + " dropped");
-				handleNewActivity(NodeLink.LAST);
+				handleNewActivity(NodeLink.PREV);
 			} catch (IOException ioe) {
 				System.err.println("unable to write data " + ioe.getMessage());
 				System.exit(1);
