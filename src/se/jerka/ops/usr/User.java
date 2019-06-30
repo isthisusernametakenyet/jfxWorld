@@ -71,6 +71,17 @@ public class User {
 		}
 	}
 	
+	public Thing inspectPosition() {
+		Thing thing = null;
+		for (Thing t : currentLocation().getThings()) {
+			if (t.getPosition().x() == currentPosition().x()
+					&& t.getPosition().y() == currentPosition().y()) {
+				thing = t;
+			}
+		}
+		return thing;
+	}
+	
 	public void drop(Thing thing) throws IOException {
 		thing.setPosition(currentPosition());
 		if (!inventory.remove(thing) || !currentLocation().putItem(thing)) {

@@ -354,7 +354,18 @@ public class Gui {
 			user.move(direction);
 			if (user.currentMode().equals(Mode.MICRO)) {
 				messages.setText(direction.getName() + " -> " + user.currentPosition().toString());
-				inspectPosition(); // belongs in user class
+				Thing thing = user.inspectPosition();
+				if (thing != null) {
+					try {
+						user.take(thing);
+					} catch (IllegalArgumentException iae) {
+						System.err.println("inadequate acquirement " + iae.getMessage());
+						System.exit(1);
+					} catch (IOException ioe) {
+						System.err.println("unable to write data " + ioe.getMessage());
+						System.exit(1);
+					}
+				}	
 			} else {
 				messages.setText(direction.getName() + " -> " + user.currentLocation().getName());
 			}
@@ -362,27 +373,6 @@ public class Gui {
 			System.err.println("move user: " + npe.getMessage());
 			System.exit(1);
 		}
-	}
-	
-	private void inspectPosition() { // move to user class
-		Thing thing = null;
-		for (Thing t : user.currentLocation().getThings()) {
-			if (t.getPosition().x() == user.currentPosition().x()
-					&& t.getPosition().y() == user.currentPosition().y()) {
-				thing = t;
-			}
-		}
-		if (thing != null) {
-			try {
-				user.take(thing);
-			} catch (IllegalArgumentException iae) {
-				System.err.println("inadequate acquirement " + iae.getMessage());
-				System.exit(1);
-			} catch (IOException ioe) {
-				System.err.println("unable to write data " + ioe.getMessage());
-				System.exit(1);
-			}
-		}	
 	}
 	
 	private void handleInventoryAction() {
